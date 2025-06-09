@@ -192,6 +192,8 @@ header, section {
   opacity: 0.8;
   box-shadow: 0 0 8px 2px #fffbe6aa;
   /* Each shooting star will have its own animation and position */
+  pointer-events: none;
+  z-index: 1;
 }
 
 /* Shooting star 1: appears every 60s, animates quickly */
@@ -249,12 +251,13 @@ header, section {
   padding: 0;
   align-items: stretch;
   justify-content: stretch;
+  align-items: flex-start; /* Make all boxes start at the same vertical position */
 }
 
 /* Each project box takes up 50% width and 50% height */
 .project-box {
   width: 50vw;
-  height: 50vh;
+  height: 60vh; /* increased from 50vh */
   box-sizing: border-box;
   background: rgba(255,255,255,0.10);
   border: 1.5px solid #bfa14a;
@@ -265,10 +268,18 @@ header, section {
   margin: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
   font-family: 'Orbitron', Arial, sans-serif;
   font-size: 1.1em;
+}
+
+/* Make project section headers line up horizontally, but lower on the page */
+.project-box h2 {
+  margin-top: 80px;    /* Move headers further down from the top */
+  margin-bottom: 12px;
+  width: 100%;
+  text-align: center;
 }
 
 /* Project description text style */
@@ -290,6 +301,111 @@ header, section {
   border-bottom: none;
 }
 
+/* Container for project image and text side by side */
+.project-content {
+  display: flex; /* Arrange children in a row */
+  align-items: center; /* Vertically center items */
+  justify-content: center; /* Center the whole content */
+  gap: 24px; /* Space between image and text */
+  width: 90%;
+  margin: 0 auto;
+}
+
+/* Style for the project image */
+.project-image {
+  width: auto;
+  height: auto;
+  max-width: 45%;      /* half of 90% */
+  max-height: 160px;   /* half of 320px */
+  object-fit: contain; /* Show the whole image, keep aspect ratio */
+  border-radius: 10px;
+  border: 2px solid #bfa14a;
+  background: #222;
+  margin: 0;
+}
+
+/* Make the robotics lab image as big as possible but never exceed its box */
+.large-image {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain; /* Show the whole image, keep aspect ratio */
+  border-radius: 10px;
+  border: 2px solid #bfa14a;
+  background: #222;
+}
+
+/* Make the text a bit smaller to fit better with a large image */
+.project-content p {
+  font-size: 0.9em;
+}
+
+/* Container for the text and video */
+.project-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align text to the left */
+  justify-content: center;
+  flex: 1; /* Take up remaining space */
+}
+
+/* Style for the Spotify icon */
+.spotify-icon {
+  width: 64px;
+  height: 64px;
+  margin-top: 24px;
+  margin-bottom: 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  transition: transform 0.2s; /* Smoothly scale up on hover/click */
+  cursor: pointer;
+}
+
+/* Larger Spotify icon for hobbies page */
+.spotify-icon-large {
+  width: 110px;
+  height: 110px;
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+/* Enlarge the Spotify icon when hovered or clicked */
+.spotify-icon:hover,
+.spotify-icon:active,
+.spotify-icon-large:hover,
+.spotify-icon-large:active {
+  transform: scale(1.15);
+}
+
+/* Style for the Goodreads icon */
+.goodreads-icon {
+  width: 64px;
+  height: 64px;
+  margin-top: 24px;
+  margin-bottom: 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  transition: transform 0.2s; /* Smoothly scale up on hover/click */
+  cursor: pointer;
+}
+
+/* Larger Goodreads icon for hobbies page */
+.goodreads-icon-large {
+  width: 110px;
+  height: 110px;
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+/* Enlarge the Goodreads icon when hovered or clicked */
+.goodreads-icon-large:hover,
+.goodreads-icon-large:active {
+  transform: scale(1.15);
+}
+
 /* Responsive: stack boxes on small screens */
 @media (max-width: 900px) {
   .projects-grid {
@@ -305,5 +421,20 @@ header, section {
   }
   .project-box:last-child {
     border-bottom: none;
+  }
+}
+
+/* Responsive: stack image above text on small screens */
+@media (max-width: 700px) {
+  .project-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .project-image {
+    margin-bottom: 8px;
+  }
+  .project-text {
+    align-items: center;
   }
 }
